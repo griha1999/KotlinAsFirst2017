@@ -51,13 +51,14 @@ fun ageDescription(age: Int): String  {
 fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
                    t3: Double, v3: Double): Double {
-    val polovina = (v1 * t1 + v2 * t2 + v3 * t3) / 2
-    return when {
-        (v1 * t1 >= polovina) -> polovina / v1
-        (v1 * t1 + v2 * t2 >= polovina) -> t1 + (polovina - v1 * t1) / v2
-        else -> t1 + t2 + (polovina - v1 * t1 - v2 * t2) / v3
+    val half = (v1 * t1 + v2 * t2 + v3 * t3) / 2.0
+    if  (v1 * t1 >= half) return (half / v1)
+    else {
+        if (v1 * t1 + v2 * t2 >= half) return (t1 + (half - v1 * t1) / v2)
+    else  return (t1 + t2 + (half - v1 * t1 - v2 * t2) / v3)
+        }
     }
-}
+
 
 
 /**
@@ -72,17 +73,17 @@ fun timeForHalfWay(t1: Double, v1: Double,
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
-    var ygroza1 = 0
-    var ygroza2 = 0
+    var attac1 = 0
+    var attac2 = 0
     if (kingX == rookX1 || kingY == rookY1)
-        ygroza1++
+        attac1++
     if (kingX == rookX2 || kingY == rookY2)
-        ygroza2++
-    return when {
-        (ygroza1 == 1 && ygroza2 == 1) -> 3
-        (ygroza1 == 0 && ygroza2 == 1) -> 2
-        (ygroza1 == 1 && ygroza2 == 0) -> 1
-        else -> 0
+        attac2++
+    if ((attac1 == 0) && (attac2 == 0)) return 0 else {
+        if ((attac1 == 1) && (attac2 == 0)) return 1 else {
+            if ((attac2 == 1) && ((attac1 == 0)))  return 2 else return 3
+        }
+
     }
 }
 
@@ -99,16 +100,16 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    var ygroza1 = 0
-    var ygroza2 = 0
+    var attac1 = 0
+    var attac2 = 0
     if (kingX == rookX || kingY == rookY)
-        ygroza1++
+        attac1++
     if ((kingX - kingY == bishopX - bishopY) || (kingX + kingY == bishopX + bishopY))
-        ygroza2++
+        attac2++
     return when {
-        (ygroza1 == 1 && ygroza2 == 1) -> 3
-        (ygroza1 == 0 && ygroza2 == 1) -> 2
-        (ygroza1 == 1 && ygroza2 == 0) -> 1
+        (attac1 == 1 && attac2 == 1) -> 3
+        (attac1 == 0 && attac2 == 1) -> 2
+        (attac1 == 1 && attac2 == 0) -> 1
         else -> 0
     }
 }
