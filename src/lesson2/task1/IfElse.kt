@@ -122,34 +122,22 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    if ((a + b <= c) || (a + c <= b) || (b + c <= a))
-        return -1
-    else
-        if (a > b && a > c) {
-            if (a * a == b * b + c * c)
-                return 1
-            if (a * a < b * b + c * c)
-                return 0
-            else
-                return 2
-        }
-        else if (b > a && b > c) {
-            if (b * b == a * a + c * c)
-                return 1
-            if (b * b < a * a + c * c)
-                return 0
-            else
-                return 2
-        }
-        else {
-            if (c * c == b * b + a * a)
-                return 1
-            if (c * c < b * b + a * a)
-                return 0
-            else
-                return 2
-        }
+    if ((a > b + c) || (b > a + c) || (c > b + a))
+    return -1
+    else return when {
+        ((a > b) && (a > c) && (a * a < b * b + c * c)) -> 0
+        ((b > a) && (b > c) && (b * b < a * a + c * c)) -> 0
+        ((c > b) && (c > a) && (c * c < b * b + a * a)) -> 0
+        ((a > b) && (a > c) && (a * a == b * b + c * c)) -> 1
+        ((b > a) && (b > c) && (b * b == a * a + c * c)) -> 1
+        ((c > b) && (c > a) && (c * c == b * b + a * a)) -> 1
+        ((a > b) && (a > c) && (a * a > b * b + c * c)) -> 2
+        ((b > a) && (b > c) && (b * b > a * a + c * c)) -> 2
+        ((c > b) && (c > a) && (c * c > b * b + a * a)) -> 2
+        else -> 0
+    }
 }
+
 
 
 
