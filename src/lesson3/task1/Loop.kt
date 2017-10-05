@@ -191,7 +191,20 @@ fun hasDifferentDigits(n: Int): Boolean {
  * 149162536496481100121144...
  * Например, 2-я цифра равна 4, 7-я 5, 12-я 6.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var value = 1
+    var sqr = 0
+    var str: String = ""
+    var nn = n
+    while (nn > 0) {
+        sqr = value * value
+        str = "$sqr"
+        value++
+        nn -= str.length
+    }
+    value = str.length - 1 + nn
+    return str[value].toString().toInt()
+}
 
 /**
  * Сложная
