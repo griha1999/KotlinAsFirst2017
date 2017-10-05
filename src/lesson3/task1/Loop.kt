@@ -100,8 +100,17 @@ fun minDivisor(n: Int): Int = TODO()
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
-
+fun maxDivisor(n: Int): Int {
+    var number = n - 1
+    var devisor = 0
+    while (number != 0) {
+        if (n % number == 0) {
+            devisor = number; break
+        }
+        number -= 1
+    }
+    return devisor
+}
 /**
  * Простая
  *
@@ -193,12 +202,12 @@ fun hasDifferentDigits(n: Int): Boolean {
  */
 fun squareSequenceDigit(n: Int): Int {
     var value = 1
-    var sqr = 0
+    var sqre = 0
     var str: String = ""
     var nn = n
     while (nn > 0) {
-        sqr = value * value
-        str = "$sqr"
+        sqre = value * value
+        str = "$sqre"
         value++
         nn -= str.length
     }
