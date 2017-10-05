@@ -1,6 +1,8 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson3.task1
 
+import kotlin.concurrent.thread
+
 /**
  * Пример
  *
@@ -60,8 +62,16 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Найти количество цифр в заданном числе n.
  * Например, число 1 содержит 1 цифру, 456 -- 3 цифры, 65536 -- 5 цифр.
  */
-fun digitNumber(n: Int): Int = TODO()
-
+fun digitNumber(n: Int): Int {
+    var length = 0
+    var definition = Math.abs(n)
+    do {
+        length = length + 1
+        definition /= 10
+    }
+        while (definition != 0)
+    return length
+}
 /**
  * Простая
  *
@@ -134,7 +144,17 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Поменять порядок цифр заданного числа n на обратный: 13478 -> 87431.
  * Не использовать строки при решении задачи.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var ammount = n
+    var reverted = 0
+
+    do {
+      reverted = reverted * 10 + (ammount % 10)
+        ammount /= 10
+    }
+        while (ammount !=0)
+    return reverted
+}
 
 /**
  * Средняя
