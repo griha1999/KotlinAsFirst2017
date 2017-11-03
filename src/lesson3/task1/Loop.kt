@@ -66,7 +66,7 @@ fun digitNumber(n: Int): Int {
     var length = 0
     var definition = Math.abs(n)
     do {
-        length = length + 1
+        length ++
         definition /= 10
     }
         while (definition != 0)
@@ -189,8 +189,7 @@ fun revert(n: Int): Int {
  * первая цифра равна последней, вторая -- предпоследней и так далее.
  * 15751 -- палиндром, 3653 -- нет.
  */
-fun isPalindrome(n: Int): Boolean = if (revert(n) == n) true else false
-
+fun isPalindrome(n: Int): Boolean = revert(n) == n
 /**
  * Средняя
  *
@@ -239,4 +238,16 @@ fun squareSequenceDigit(n: Int): Int {
  * 1123581321345589144...
  * Например, 2-я цифра равна 1, 9-я 2, 14-я 5.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var number = 1
+    var str = ""
+    var clone = n
+    while (clone > 0) {
+        val fibnumb = fib(number)
+        str = "$fibnumb"
+        number++
+        clone -= str.length
+    }
+    number = str.length - 1 + clone
+    return str[number].toString().toInt()
+}
