@@ -153,7 +153,18 @@ fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
  * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double  {
+    var counter = 1
+    var sin = x % (2 * Math.PI)
+    val sinConst = sin
+    var equation = sin
+    while (Math.abs(equation) >= eps) {
+        equation = -equation * sinConst / ((counter * 2 + 1) * (counter * 2)).toDouble() * sinConst
+        counter += 1
+        sin += equation
+    }
+    return sin
+}
 
 /**
  * Средняя
@@ -162,7 +173,18 @@ fun sin(x: Double, eps: Double): Double = TODO()
  * cos(x) = 1 - x^2 / 2! + x^4 / 4! - x^6 / 6! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun cos(x: Double, eps: Double): Double = TODO()
+fun cos(x: Double, eps: Double): Double {
+    var equation = 1.0
+    var counter = 1
+    var cos = 1.0
+    val const = x % (2 * Math.PI)
+    while (Math.abs(equation) >= eps) {
+        equation = -equation * const / ((counter * 2 - 1) * (counter * 2)).toDouble() * const
+        counter += 1
+        cos += equation
+    }
+    return cos
+}
 
 /**
  * Средняя
