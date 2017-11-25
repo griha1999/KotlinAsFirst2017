@@ -122,7 +122,8 @@ fun maxDivisor(n: Int): Int {
     var devisor = 0
     while (number != 0) {
         if (n % number == 0) {
-            devisor = number; break
+            devisor = number;
+            break
         }
         number -= 1
     }
@@ -200,7 +201,7 @@ fun revert(n: Int): Int {
       reverted = reverted * 10 + (ammount % 10)
         ammount /= 10
     }
-        while (ammount !=0)
+        while (ammount != 0)
     return reverted
 }
 
@@ -220,15 +221,13 @@ fun isPalindrome(n: Int): Boolean = revert(n) == n
  */
 fun hasDifferentDigits(n: Int): Boolean {
     var number = n
-    var count = 0
-    if (n > 9) {
-        do {
-            if ((number % 10) != (number / 10 % 10)) count++
-
+    var count = false
+    do {
+            if ((number % 10) != (number / 10 % 10))
+                count = true
             number /= 10
         } while (number >= 10)
-        if (count != 0) return true else return false
-    } else return false
+    return count
 }
 
 /**
@@ -241,7 +240,7 @@ fun hasDifferentDigits(n: Int): Boolean {
 fun squareSequenceDigit(n: Int): Int {
     var value = 1
     var sqre = 0
-    var str: String = ""
+    var str = ""
     var nn = n
     while (nn > 0) {
         sqre = value * value

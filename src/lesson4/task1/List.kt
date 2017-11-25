@@ -130,11 +130,11 @@ fun mean(list: List<Double>): Double = TODO()
  */
 fun center(list: MutableList<Double>): MutableList<Double> =
         when {
-    list.isEmpty() -> list
-    else -> {
-        val medium = list.sum() / list.size
-        for (elCount in 0 until list.size) {
-            list[elCount] -= medium
+             list.isEmpty() -> list
+             else -> {
+                      val medium = list.sum() / list.size
+                      for (elCount in 0 until list.size) {
+                            list[elCount] -= medium
         }
         list
     }
