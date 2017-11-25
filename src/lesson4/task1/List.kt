@@ -2,6 +2,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import lesson3.task1.isPrime
 
 /**
  * Пример
@@ -167,7 +168,17 @@ fun times(a: List<Double>, b: List<Double>): Double =
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0.0 при любом x.
  */
-fun polynom(p: List<Double>, x: Double): Double = TODO()
+fun polynom(p: List<Double>, x: Double): Double =
+        when {
+    p.isNotEmpty() -> {
+        var count = 0.0
+        for (i in 0 until p.size)
+            count += p[i] * Math.pow(x, i.toDouble())
+        count
+    }
+    else -> 0.0
+}
+
 
 /**
  * Средняя
@@ -204,7 +215,20 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> =
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    val result = mutableListOf<Int>()
+    var clone = n
+    var devisor = 2
+   while (clone > 1) {
+       if (clone % devisor == 0) {
+           result.add(devisor)
+           clone /= devisor
+       }
+       else devisor++
+   }
+return result
+}
+
 
 /**
  * Сложная
