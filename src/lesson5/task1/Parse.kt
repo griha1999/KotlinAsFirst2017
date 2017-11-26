@@ -113,7 +113,16 @@ fun bestLongJump(jumps: String): Int = TODO()
  * Прочитать строку и вернуть максимальную взятую высоту (230 в примере).
  * При нарушении формата входной строки вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps: String): Int {
+    val parts = jumps.split(" ")
+    var max = -1
+    for (part in 1..parts.size - 1 step 2) {
+        val maxOfParts = parts[part - 1].toInt()
+        if ('+' in parts[part] && max < maxOfParts) max = maxOfParts
+    }
+    return max
+}
+
 
 /**
  * Сложная
