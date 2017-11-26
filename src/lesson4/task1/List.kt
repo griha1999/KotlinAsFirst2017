@@ -107,7 +107,12 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double = TODO()
+fun abs(v: List<Double>): Double =
+        when {
+        v.isNotEmpty() -> Math.sqrt(v.map { it * it }.sum())
+        else -> 0.0
+    }
+
 
 
 
@@ -119,7 +124,12 @@ fun abs(v: List<Double>): Double = TODO()
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double = TODO()
+fun mean(list: List<Double>): Double =
+    when {
+        list.isNotEmpty() -> list.sum() / list.size
+        else -> 0.0
+        }
+
 
 /**
  * Средняя
@@ -273,10 +283,9 @@ fun convertToString(n: Int, base: Int): String {
     val alphabet = "abcdefghijklmnopqrstuvwxyz"
     for (i in 0 until converted.size)
         result += if (converted[i] < 10) converted[i] else
-        alphabet[converted[i] - 10]
+            alphabet[converted[i] - 10]
     return result
 }
-
 /**
  * Средняя
  *
@@ -305,13 +314,16 @@ fun decimal(digits: List<Int>, base: Int): Int {
  */
 fun decimalFromString(str: String, base: Int): Int {
     val subresult = mutableListOf<Int>()
-    val alphabet = "abcdefghijklmnopqrstuvwxyz"
-    for (i in 0..str.length - 1) {
-        if (str[i] in '0'..'9') subresult.add(str[i].toInt()) else
-            subresult.add(alphabet.indexOf(str[i], 0)+10)
+    var result = 0
+    for (i in 0..str.length - 1)
+        if (str[i] in '0'..'9')
+            subresult.add(str[i] - '0')
+        else
+            subresult.add(str[i] - 'a' + 10)
+    return if (str.length == 1) subresult[0] else decimal(subresult, base)
     }
-    return decimal(subresult,base)
-}
+
+
 
 /**
  * Сложная
@@ -321,7 +333,21 @@ fun decimalFromString(str: String, base: Int): Int {
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+    var str = ""
+    val arabian = listOf<Int>(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+    val romanic = listOf<String>("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    var n1 = n
+    var i = 0
+    while (n1 > 0) {
+        while (n1 - arabian[i] >= 0) {
+            str += romanic[i]
+            n1 -= arabian[i]
+        }
+        i += 1
+    }
+    return str
+}
 
 /**
  * Очень сложная
