@@ -226,7 +226,34 @@ fun mostExpensive(description: String): String {
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman: String): Int = TODO()
+fun fromRoman(roman: String): Int {
+    if (roman.isEmpty()) return -1
+    val romNumb = listOf(1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1)
+    val romAbc = listOf("M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I")
+    var number = 0
+    var elNumb = 0
+    while (elNumb < roman.length) {
+        val el = roman[elNumb].toString()
+        if (el in romAbc) {
+            if (elNumb < roman.length - 1) {
+                val nextEl = roman[elNumb + 1].toString()
+                if (((el == "I" && nextEl == "V") ||
+                        (el == "I" && nextEl == "X") ||
+                        (el == "X" && nextEl == "L") ||
+                        (el == "X" && nextEl == "C") ||
+                        (el == "C" && nextEl == "D") ||
+                        (el == "C" && nextEl == "M"))) {
+                    number += romNumb[romAbc.indexOf(el + nextEl)]
+                    elNumb++
+                } else
+                    number += romNumb[romAbc.indexOf(el)]
+            } else
+                number += romNumb[romAbc.indexOf(el)]
+        } else return -1
+        elNumb++
+    }
+    return number
+}
 
 /**
  * Очень сложная
