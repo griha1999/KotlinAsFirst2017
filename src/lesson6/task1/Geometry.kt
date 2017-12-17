@@ -85,7 +85,10 @@ data class Circle(val center: Point, val radius: Double) {
 /**
  * Отрезок между двумя точками
  */
-data class Segment(val begin: Point, val end: Point) {
+data class Segment(val begin: Point, val end: Point){
+    fun center(): Point =
+            Point(begin.x + (end.x - begin.x) / 2, begin.y + (end.y - begin.y) / 2)
+
     override fun equals(other: Any?) =
             other is Segment && (begin == other.begin && end == other.end || end == other.begin && begin == other.end)
 
@@ -178,7 +181,12 @@ fun lineByPoints(a: Point, b: Point): Line {
  *
  * Построить серединный перпендикуляр по отрезку или по двум точкам
  */
-fun bisectorByPoints(a: Point, b: Point): Line = TODO()
+fun bisectorByPoints(a: Point, b: Point): Line {
+    val line = lineByPoints(a, b).angle
+    val segment = Segment(a, b).center()
+    return if (line < Math.PI / 2) Line(segment, line + Math.PI / 2)
+    else Line(segment, line - Math.PI / 2)
+}
 
 /**
  * Средняя
