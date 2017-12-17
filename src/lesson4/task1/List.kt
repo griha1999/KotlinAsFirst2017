@@ -125,10 +125,11 @@ fun abs(v: List<Double>): Double =
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double =
-    when {
-        list.isNotEmpty() -> list.sum() / list.size
-        else -> 0.0
+        when {
+            list.isNotEmpty() -> list.sum() / list.size
+            else -> 0.0
         }
+
 
 
 /**
@@ -141,15 +142,17 @@ fun mean(list: List<Double>): Double =
  */
 fun center(list: MutableList<Double>): MutableList<Double> =
         when {
-             list.isEmpty() -> list
-             else -> {
-                      val medium = list.sum() / list.size
-                      for (elCount in 0 until list.size) {
-                            list[elCount] -= medium
+            list.isEmpty() -> list
+            else -> {
+                val average = mean(list)
+                for (elCount in 0 until list.size) {
+                    list[elCount] -= average
+                }
+                list
+            }
         }
-        list
-    }
-}
+
+
 
 /**
  * Средняя
@@ -180,14 +183,14 @@ fun times(a: List<Double>, b: List<Double>): Double =
  */
 fun polynom(p: List<Double>, x: Double): Double =
         when {
-    p.isNotEmpty() -> {
-        var count = 0.0
-        for (i in 0 until p.size)
-            count += p[i] * Math.pow(x, i.toDouble())
-        count
-    }
-    else -> 0.0
-}
+            p.isEmpty() -> 0.0
+            else -> {
+                var result = 0.0
+                for (i in 0 until p.size)
+                    result += p[i] * Math.pow(x, i.toDouble())
+                result
+            }
+        }
 
 
 /**
@@ -209,8 +212,7 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> =
                 list
             }
             else -> list
-
-            }
+        }
 
 
 
@@ -314,7 +316,6 @@ fun decimal(digits: List<Int>, base: Int): Int {
  */
 fun decimalFromString(str: String, base: Int): Int {
     val subresult = mutableListOf<Int>()
-    var result = 0
     for (i in 0..str.length - 1)
         if (str[i] in '0'..'9')
             subresult.add(str[i] - '0')

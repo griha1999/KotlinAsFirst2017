@@ -122,7 +122,7 @@ fun maxDivisor(n: Int): Int {
     var devisor = 0
     while (number != 0) {
         if (n % number == 0) {
-            devisor = number;
+            devisor = number
             break
         }
         number -= 1
@@ -196,9 +196,8 @@ fun cos(x: Double, eps: Double): Double {
 fun revert(n: Int): Int {
     var ammount = n
     var reverted = 0
-
     do {
-      reverted = reverted * 10 + (ammount % 10)
+        reverted = reverted * 10 + (ammount % 10)
         ammount /= 10
     }
         while (ammount != 0)
@@ -219,16 +218,8 @@ fun isPalindrome(n: Int): Boolean = revert(n) == n
  * Для заданного числа n определить, содержит ли оно различающиеся цифры.1
  * Например, 54 и 323 состоят из разных цифр, а 111 и 0 из одинаковых.
  */
-fun hasDifferentDigits(n: Int): Boolean {
-    var number = n
-    var count = false
-    do {
-            if ((number % 10) != (number / 10 % 10))
-                count = true
-            number /= 10
-        } while (number >= 10)
-    return count
-}
+fun hasDifferentDigits(n: Int): Boolean = digitCountInNumber(n, n % 10) != "$n".length
+
 
 /**
  * Сложная

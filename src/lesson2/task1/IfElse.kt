@@ -80,9 +80,9 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
     if (kingX == rookX2 || kingY == rookY2)
         attac2 = true
    return when {
-       ((attac1 == false) && (attac2 == false)) -> 0
-       ((attac1 == true) && (attac2 == false)) -> 1
-       ((attac2 == true) && (attac1 == false)) -> 2
+       (! attac1 && ! attac2) -> 0
+       (attac1 && ! attac2) -> 1
+       (attac2 && ! attac1) -> 2
        else -> 3
         }
 
@@ -109,9 +109,9 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
     if ((kingX - kingY == bishopX - bishopY) || (kingX + kingY == bishopX + bishopY))
         attac2 = true
     return when {
-        (attac1 == true && attac2 == true) -> 3
-        (attac1 == false && attac2 == true) -> 2
-        (attac1 == true && attac2 == false) -> 1
+        (attac1  && attac2) -> 3
+        (! attac1 && attac2) -> 2
+        (attac1 && ! attac2) -> 1
         else -> 0
     }
 }
