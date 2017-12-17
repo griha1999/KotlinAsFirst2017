@@ -89,8 +89,20 @@ fun dateDigitToStr(digital: String): String = TODO()
  * Все символы в номере, кроме цифр, пробелов и +-(), считать недопустимыми.
  * При неверном формате вернуть пустую строку
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String {
+    val number = '0'..'9'
+    val whitelist = " ()-+"
+    if (phone.isEmpty() || phone.indexOf('+') > 0) return ""
 
+    for (i in phone)
+        if (i !in number && i !in whitelist) return ""
+    var result = ""
+    for (el in phone) {
+        if (el in number || el == '+') result += el
+        else if (el !in whitelist) return ""
+    }
+    return result
+}
 /**
  * Средняя
  *
@@ -133,7 +145,23 @@ fun bestHighJump(jumps: String): Int {
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    try {
+        val parts = expression.split(" ")
+        var result = parts[0].toInt()
+        for (i in 2..parts.size step 2) {
+            if (parts[i - 1] == "+") {
+                result += parts[i].toInt()
+            } else if (parts[i - 1] == "-") {
+                result -= parts[i].toInt()
+            }
+            else throw IllegalArgumentException()
+        }
+        return result
+    } catch (e: NumberFormatException) {
+        throw  IllegalArgumentException(e)
+    }
+}
 
 /**
  * Сложная
