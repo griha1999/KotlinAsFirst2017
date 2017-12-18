@@ -80,12 +80,11 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
     if (kingX == rookX2 || kingY == rookY2)
         attac2 = true
    return when {
-       (! attac1 && ! attac2) -> 0
-       (attac1 && ! attac2) -> 1
-       (attac2 && ! attac1) -> 2
+       (!attac1 && !attac2) -> 0
+       (attac1 && !attac2) -> 1
+       (attac2 && !attac1) -> 2
        else -> 3
         }
-
 }
 
 
@@ -110,8 +109,8 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
         attac2 = true
     return when {
         (attac1  && attac2) -> 3
-        (! attac1 && attac2) -> 2
-        (attac1 && ! attac2) -> 1
+        (!attac1 && attac2) -> 2
+        (attac1 && !attac2) -> 1
         else -> 0
     }
 }
@@ -124,22 +123,7 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int {
-    if ((a > b + c) || (b > a + c) || (c > b + a))
-    return -1
-    else return when {
-        ((a > b) && (a > c) && (a * a < b * b + c * c)) -> 0
-        ((b > a) && (b > c) && (b * b < a * a + c * c)) -> 0
-        ((c > b) && (c > a) && (c * c < b * b + a * a)) -> 0
-        ((a > b) && (a > c) && (a * a == b * b + c * c)) -> 1
-        ((b > a) && (b > c) && (b * b == a * a + c * c)) -> 1
-        ((c > b) && (c > a) && (c * c == b * b + a * a)) -> 1
-        ((a > b) && (a > c) && (a * a > b * b + c * c)) -> 2
-        ((b > a) && (b > c) && (b * b > a * a + c * c)) -> 2
-        ((c > b) && (c > a) && (c * c > b * b + a * a)) -> 2
-        else -> 0
-    }
-}
+fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
 
 
 

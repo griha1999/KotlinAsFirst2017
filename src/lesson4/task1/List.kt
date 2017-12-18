@@ -107,11 +107,7 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double =
-        when {
-        v.isNotEmpty() -> Math.sqrt(v.map { it * it }.sum())
-        else -> 0.0
-    }
+fun abs(v: List<Double>): Double = TODO()
 
 
 
@@ -231,14 +227,14 @@ fun factorize(n: Int): List<Int> {
     val result = mutableListOf<Int>()
     var clone = n
     var devisor = 2
-   while (clone > 1) {
+    while (clone > 1) {
        if (clone % devisor == 0) {
            result.add(devisor)
            clone /= devisor
        }
        else devisor++
-   }
-return result
+    }
+    return result
 }
 
 
