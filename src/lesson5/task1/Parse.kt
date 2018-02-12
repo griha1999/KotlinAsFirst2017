@@ -126,13 +126,18 @@ fun bestLongJump(jumps: String): Int = TODO()
  * При нарушении формата входной строки вернуть -1.
  */
 fun bestHighJump(jumps: String): Int {
-    val parts = jumps.split(" ")
-    var max = -1
-    for (part in 1..parts.size - 1 step 2) {
-        val maxOfParts = parts[part - 1].toInt()
-        if ('+' in parts[part] && max < maxOfParts) max = maxOfParts
+    var maxVal = -1
+try {
+    val listOfResults = jumps.split(" ").reversed()
+    for (i in 1..listOfResults.size step 2) {
+        if (listOfResults[i - 1].matches(Regex("\\+")))
+        if (listOfResults[i].toInt() > maxVal) maxVal = listOfResults[i].toInt()
     }
-    return max
+} catch (e: java.lang.IndexOutOfBoundsException) {
+    return maxVal
+}
+
+    return maxVal
 }
 
 
@@ -146,22 +151,20 @@ fun bestHighJump(jumps: String): Int {
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
 fun plusMinus(expression: String): Int {
+    val a = expression.trim().split(" ")
+    var sum = a[0].toInt()
     try {
-        val parts = expression.split(" ")
-        var result = parts[0].toInt()
-        for (i in 2..parts.size step 2) {
-            if (parts[i - 1] == "+") {
-                result += parts[i].toInt()
-            } else if (parts[i - 1] == "-") {
-                result -= parts[i].toInt()
-            }
-            else throw IllegalArgumentException()
+        for (b in 0..a.size - 1) {
+            if (a[b] == "+") sum += a[b+1].toInt()
+            if (a[b] == "-") sum -= a[b+1].toInt()
         }
-        return result
-    } catch (e: NumberFormatException) {
-        throw  IllegalArgumentException(e)
+        return sum
+    }
+    catch (e: NumberFormatException) {
+        return -1
     }
 }
+
 
 /**
  * Сложная
@@ -173,11 +176,12 @@ fun plusMinus(expression: String): Int {
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
 fun firstDuplicateIndex(str: String): Int {
-    val parts = str.toLowerCase().split(" ")
+    val a = str.toLowerCase().split(" ")
+    var b = 0
     var index = 0
-    for (i in 0..parts.size - 2) {
-        if (parts[i] == parts[i + 1]) return index
-        index += parts[i].length + 1
+    for (c in 0..a.size - 2) {
+        if (a[c] == a[c + 1]) return index
+        index += a[c].length + 1
     }
     return -1
 }
@@ -194,24 +198,25 @@ fun firstDuplicateIndex(str: String): Int {
  * Все цены должны быть положительными
  */
 fun mostExpensive(description: String): String {
+
     if (description.isEmpty()) return ""
-    var maxCost = 0.0
-    var nameMaxCost = ""
+    var max = 0.0
+    var name = ""
     try {
         val parts = description.split("; ")
         for (el in parts) {
             val product = el.split(" ")
             if (product.size != 2) return ""
             val maxOfParts = product[1].toDouble()
-            if (maxOfParts >= maxCost) {
-                maxCost = maxOfParts
-                nameMaxCost = product[0]
+            if (maxOfParts >= max) {
+                max = maxOfParts
+                name = product[0]
             }
         }
     } catch (e: NumberFormatException) {
         return ""
     }
-    return nameMaxCost
+    return name
 }
 
 

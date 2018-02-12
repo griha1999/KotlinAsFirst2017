@@ -2,6 +2,7 @@
 package lesson8.task1
 
 import java.io.File
+import java.io.IOException
 
 /**
  * Пример
@@ -408,4 +409,196 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     TODO()
 }
+
+
+
+fun mnojestva(inputName: String, expr: String): String {
+    if (!File(inputName).canRead()) throw IOException()
+    if (!expr.matches(Regex("([A-Z])+ +&+ +([A-Z])"))) throw IllegalArgumentException("кек")
+    val inputlist = File(inputName).readLines()
+    val expr1 = expr.substring(0,1)
+    val expr2 = expr.substring(4,5)
+    var nujmnoj1 = ""
+    var nujmnoj2 = ""
+    try {
+        for (lines in inputlist) {
+            if (!lines.matches(Regex("([A-Z])+ +=+(( +\\d+,)+)+ +\\d"))) throw IllegalArgumentException("кек")
+            val mnoj = lines.split("=")
+            if (mnoj[0].substring(0, 1).toString() == expr1.toString() || mnoj[0].substring(0, 1).toString() == expr2.toString()) {
+                if (nujmnoj1 == "") nujmnoj1 = mnoj[1] else nujmnoj2 = mnoj[1]
+            }
+        }
+        val splitnujmnoj1 = nujmnoj1.split(",")
+        val splitnujmnoj2 = nujmnoj2.split(",")
+        var result = ""
+        for (a in splitnujmnoj1) {
+            for (b in splitnujmnoj2) {
+                if (a.trim().toInt() == b.trim().toInt()) result += a
+            }
+        }
+        return result.trim()
+    } catch (e: NumberFormatException) {
+
+        throw IllegalArgumentException("кек")
+    }
+
+}
+
+fun telepona2(inputName: String, query: String): String {
+    if (!File(inputName).canRead()) throw IllegalArgumentException()
+    val inputlist = File(inputName).readLines()
+    val queryname = query.split(" ")
+    val asd = queryname[0]
+    if (queryname.size != 2 || queryname[1].contains(Regex("""[^а-яА-я]""")) || queryname[0].contains(Regex("""[^а-яА-я]""")) )
+        throw IllegalArgumentException()
+    val ppp = queryname[1]
+    val result = "Нет номера"
+    for (line  in inputlist) {
+        val contact = line.split(":")
+        val dsaf = contact[0]
+        val adsf = contact[0].substring(0,contact[0].length - 1)
+        if (contact[0].substring(0,contact[0].length - 1) == queryname[0])  {
+            val nambers = contact[1].split(",")
+            for (sublines in nambers) {
+                val subsub = sublines.trim().split(" ")
+                val sdf = subsub[1].substring(1,subsub[1].length-1)
+                if (ppp == sdf) return subsub[0]
+            }
+        }
+    }
+
+return result
+
+}
+
+fun srednee3(inputName: String, range: String): Double {
+    val startstolb = translate(range.split(":")[0].first())
+    val stopstolb = translate(range.split(":")[1].first())
+    val elem = File(inputName).readLines()[range.split(":")[0].last().toString().toInt() - 1].split(",")
+    var n = 0
+    var result = 0.0
+    while (n <= stopstolb) {
+        if (n >= startstolb) result += elem[n - 1].toDouble()
+        n ++
+    }
+    return result
+}
+
+
+fun translate(a: Char): Int {
+    val alfavit = "abcdefghijklmnopqrstuvwxyz"
+    return alfavit.indexOf(a.toLowerCase(), 0) + 1
+}
+
+fun osadki4(inputName: String, days :String): Int {
+    val inputlist = File(inputName).readLines()
+    val start = days.split(" ")[1].split("..")[0].toInt()
+    val stop = days.split(" ")[1].split("..")[1].toInt()
+    var max = 0
+    for (lines in inputlist) {
+        if (lines.split(" ")[0] == days.split(" ")[0] ) {
+            var n = 0
+            while (n <= stop) {
+                if (n >= start) if (lines.split(" ")[n].toInt() > max) max = lines.split(" ")[n].toInt()
+                n ++
+            }
+        }
+    }
+    return max
+}
+
+fun product5(inputName: String, query: String): String{
+    val inputlist = File(inputName).readLines()
+    for (lines in inputlist) {
+        if (lines.split(":")[0] == query.split(" ")[0]) {
+            val kolvo = lines.split(":")[1].trim().split(",")[2].trim().split(" ")[0].trim().toInt()
+            val cena = lines.split(":")[1].trim().split(",")[1].trim().split(" ")[0].trim().toInt()
+            if (kolvo >= query.split(" ")[1].toInt())
+                return "Достатачно Цена: " + (query.split(" ")[1].toInt() * cena.toString().toInt())
+        }
+
+    }
+    return "Недостатачно"
+}
+
+fun sport6(inputName: String):String {
+    if (!File(inputName).canRead()) throw IllegalArgumentException("Ну че где твоя таблица-то, блять?")
+    val inputlist = File(inputName).readLines()
+    var n = 1
+    var result =""
+    try {
+        for (lines in inputlist) {
+            if (!lines.matches(Regex("([А-я])\\W+(\\d+ )+\\d"))) throw IllegalArgumentException("Лашпед! таблицу перделай, мудень, блять")
+            val komanda = lines.split(" ")[0]
+            var zabito = 0
+            var propysheno = 0
+            for (a in 1..inputlist.size) {
+                zabito += lines.split(" ")[a].trim().toInt()
+                propysheno += inputlist[a - 1].split(" ")[n].toInt()
+                if ((a == n) && (lines.split(" ")[a].trim().toInt() != 0) && (inputlist[a - 1].split(" ")[n].toInt() != 0)) throw IllegalArgumentException("Хуйку сасика")
+            }
+            result += komanda + " Забито: " + zabito + " Пропущено: " + propysheno + " / "
+            n++
+
+        }
+    } catch (e: IndexOutOfBoundsException ) {
+        throw IllegalArgumentException("Ну ты и тупой")
+    }
+        return result.trim()
+    }
+
+fun samoleti(inputName: String, src: String, dst: String): String {
+    if (!File(inputName).canRead()) throw IllegalArgumentException()
+    val inputlist = File(inputName).readLines()
+    var indicator = 0
+    for (lines in inputlist) {
+        if (!lines.matches(Regex("\\d+ +(([А-я])\\W)+[<>]+.*"))) throw IllegalArgumentException()
+        if (lines.split(" ")[3].toString().length != 5) throw IllegalArgumentException()
+        if (lines.split(" ")[1] == src && lines.split(" ")[2] == ">") indicator ++
+        if (lines.split(" ")[1] == dst && lines.split(" ")[2] == "<") indicator ++
+    }
+    if (indicator >= 2) return "Да"
+    return "Сидидома дебил"
+}
+
+fun kvartiri(inputName: String, query: String): String{
+    val inputlist = File(inputName).readLines()
+    var result = ""
+    for (lines in inputlist) {
+        val kvartira = lines.split(":")[1].trim().split(",")
+        for (komnati in kvartira) {
+            if (komnati.trim().split(" ")[0] == query.split(" ")[0] && komnati.trim().split(" ")[1].toInt() >= query.split(" ")[1].toInt())
+                result += lines.split(":")[0] + " "
+
+        }
+    }
+    if (result.isNotEmpty()) return result
+    return "живи на улице с такими запросами"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

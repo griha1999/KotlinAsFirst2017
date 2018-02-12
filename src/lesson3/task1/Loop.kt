@@ -199,8 +199,7 @@ fun revert(n: Int): Int {
     do {
         reverted = reverted * 10 + (ammount % 10)
         ammount /= 10
-    }
-        while (ammount != 0)
+    } while (ammount != 0)
     return reverted
 }
 

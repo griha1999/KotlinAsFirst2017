@@ -228,11 +228,10 @@ fun factorize(n: Int): List<Int> {
     var clone = n
     var devisor = 2
     while (clone > 1) {
-       if (clone % devisor == 0) {
-           result.add(devisor)
-           clone /= devisor
-       }
-       else devisor++
+        if (clone % devisor == 0) {
+            result.add(devisor)
+            clone /= devisor
+        } else devisor++
     }
     return result
 }
@@ -276,14 +275,14 @@ fun convert(n: Int, base: Int): List<Int> {
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
 fun convertToString(n: Int, base: Int): String {
-    val converted = convert(n,base)
-    var result = ""
-    val alphabet = "abcdefghijklmnopqrstuvwxyz"
-    for (i in 0 until converted.size)
-        result += if (converted[i] < 10) converted[i] else
-            alphabet[converted[i] - 10]
-    return result
+    val list = convert(n, base)
+    val str = StringBuilder()
+    for (i in 0 until list.size)
+        str.append ( if (list[i] < 10) list[i] else
+            (list[i] + 'W'.toInt()).toChar())
+    return str.toString()
 }
+
 /**
  * Средняя
  *
@@ -311,14 +310,12 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * Например: str = "13c", base = 14 -> 250
  */
 fun decimalFromString(str: String, base: Int): Int {
-    val subresult = mutableListOf<Int>()
-    for (i in 0..str.length - 1)
+    val list = mutableListOf<Int>()
+    for (i in 0 until str.length)
         if (str[i] in '0'..'9')
-            subresult.add(str[i] - '0')
-        else
-            subresult.add(str[i] - 'a' + 10)
-    return if (str.length == 1) subresult[0] else decimal(subresult, base)
-    }
+            list.add(str[i] - '0')
+    return decimal(list, base)
+}
 
 
 
